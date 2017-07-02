@@ -1,13 +1,16 @@
 from Bio import SeqIO
-import os.path
+from os import path
+from sys import exit
 
+class FileNotInPathException(Exception):
+    pass
+
+class NotFastaException(Exception):
+    pass
+    
 class Sequence(object):
     def __init__(self, filename):
-        assert self.path_exists(filename), "{} is not on path!".format(filename)
-        
-        file = filename.split("/")[-1]
-        
-        self.name = file[0:file.index(".")]
+        self.file, self.name = self.path_exists_and_is_file(filename)
         
         self.ids, self.contigs = self.iterateAndAppend_toContigs(filename)
     
@@ -24,9 +27,6 @@ class Sequence(object):
     def __getitem__(self, i):
         return self.contigs[i]
     
-    def path_exists(self, filename):
-        return os.path.isfile(filename)
-    
     def get_contig_ids(self):
         return self.ids
     
@@ -36,6 +36,21 @@ class Sequence(object):
     def get_total_seq_length(self):
         lengths = map(len, self.contigs)
         return sum(lengths)
+    
+    def path_exists_and_is_file(self, filename):
+        if not path.isfile(filename):
+            raise FileNotInPathException("{} is not a file!".format(filename))
+            exit(1)
+        
+        file = filename.split("/")[-1]
+        type = file[file.index(".")+1:]
+        name = file[0:file.index(".")]
+        
+        if type not in ["fasta", "fa"]:
+            raise NotFastaException("{} is not a fasta file!".format(filename))
+            exit(1)
+        
+        return file, name
         
     def iterateAndAppend_toContigs(self, filename):
         tmp_ids = []
