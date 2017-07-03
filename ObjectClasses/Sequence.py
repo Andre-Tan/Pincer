@@ -10,7 +10,7 @@ class NotFastaException(Exception):
     
 class Sequence(object):
     def __init__(self, filename):
-        self.file, self.name = self.path_exists_and_is_file(filename)
+        self.file, self.name = self.get_file_and_name(filename)
         
         self.ids, self.contigs = self.iterateAndAppend_toContigs(filename)
     
@@ -26,10 +26,7 @@ class Sequence(object):
         
     def __getitem__(self, i):
         return self.contigs[i]
-    
-    def get_contig_ids(self):
-        return self.ids
-    
+
     def get_contig_number(self):
         return len(self.contigs)
 
@@ -37,7 +34,7 @@ class Sequence(object):
         lengths = map(len, self.contigs)
         return sum(lengths)
     
-    def path_exists_and_is_file(self, filename):
+    def get_file_and_name(self, filename):
         if not path.isfile(filename):
             raise FileNotInPathException("{} is not a file!".format(filename))
             exit(1)
@@ -55,9 +52,10 @@ class Sequence(object):
     def iterateAndAppend_toContigs(self, filename):
         tmp_ids = []
         tmp_contigs = []
+        
         with open(filename, "r") as handle:
             for record in SeqIO.parse(handle, "fasta"):
                 tmp_ids.append(record.id)
                 tmp_contigs.append(record.seq)
-                
+        
         return (tmp_ids, tmp_contigs)

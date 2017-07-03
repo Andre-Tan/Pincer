@@ -1,6 +1,6 @@
 from sys import exit
 from Bio import SeqIO
-from Sequence import Sequence
+from ObjectClasses.Sequence import Sequence
 
 class NotContigPairException(Exception):
     pass
