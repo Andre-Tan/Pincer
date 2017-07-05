@@ -53,11 +53,11 @@ class Pincer:
         return [contig for contig in self.contigs if len(contig) >= self.min_product_length]
     
     def write_where(self, pincer_output):
-        if self.output_filename == None:
+        if self.output_filename == "None" or self.output_filename == None:
             print(pincer_output[:-1])
         else:
             with open(self.output_filename, "w") as handle:
-                handle.write(pincer_output)
+                handle.write(pincer_output[:-1])
             
         return pincer_output[:-1]
             

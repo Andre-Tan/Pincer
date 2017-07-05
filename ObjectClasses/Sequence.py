@@ -2,6 +2,8 @@ from Bio import SeqIO
 from os import path
 from sys import exit
 
+from ObjectClasses.Contig import Contig
+
 class FileNotInPathException(Exception):
     pass
 
@@ -12,7 +14,7 @@ class Sequence(object):
     def __init__(self, filename):
         self.file, self.name = self.get_file_and_name(filename)
         
-        self.ids, self.contigs = self.iterateAndAppend_toContigs(filename)
+        self.contigs = self.iterateAndAppend_toContigs(filename)
     
     def __repr__(self):
         string = "Sequence {} with {} contigs totaling {}bps"
@@ -50,12 +52,10 @@ class Sequence(object):
         return file, name
         
     def iterateAndAppend_toContigs(self, filename):
-        tmp_ids = []
         tmp_contigs = []
         
         with open(filename, "r") as handle:
             for record in SeqIO.parse(handle, "fasta"):
-                tmp_ids.append(record.id)
-                tmp_contigs.append(record.seq)
+                tmp_contigs.append(Contig(record.id, record.seq))
         
-        return (tmp_ids, tmp_contigs)
+        return tmp_contigs

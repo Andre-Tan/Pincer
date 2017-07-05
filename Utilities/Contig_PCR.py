@@ -22,12 +22,14 @@ class Contig_PCR:
     Will output the product sequence.
     """
     
-    def __init__(self, target_contig, primer1, primer2, penalty_tuple,
+    def __init__(self, target, primer1, primer2, penalty_tuple,
                 min_score, min_product_length, max_product_length):
         
-        self.target = target_contig
-        self.primer1 = primer1
-        self.primer2 = primer2
+        self.target_seq = target.sequence
+        self.target_id = target.id
+        
+        self.primer1 = primer1.sequence
+        self.primer2 = primer2.sequence
         
         self.penalty_tuple = penalty_tuple
         
@@ -37,7 +39,7 @@ class Contig_PCR:
         
     ### Local helper functions
 
-    def align_and_filter(self, target, primer):
+    def align_and_filter(self, target_seq, primer):
         """
         Align target and a single primer.
         
@@ -50,7 +52,7 @@ class Contig_PCR:
         
         match, mismatch, gap_open, gap_extend = self.penalty_tuple
         
-        alignment = pairwise2.align.localms(target, primer, match, mismatch,
+        alignment = pairwise2.align.localms(target_seq, primer, match, mismatch,
                                             gap_open, gap_extend)
         
         return get_alignment_above_min_score(alignment)
@@ -94,7 +96,7 @@ class Contig_PCR:
         if contig_set != []:
             return contig_set
 
-    def strand_pcr(self, target, forward, reverse):
+    def strand_pcr(self, target_seq, forward, reverse):
         """
         Perform the single strand PCR.
         
@@ -104,10 +106,10 @@ class Contig_PCR:
         
         reverse = reverse.reverse_complement()
         
-        forward_align = self.align_and_filter(target, forward)
+        forward_align = self.align_and_filter(target_seq, forward)
         
         if len(forward_align) > 0:
-            reverse_align = self.align_and_filter(target, reverse)
+            reverse_align = self.align_and_filter(target_seq, reverse)
             
         if len(forward_align) > 0 and len(reverse_align) > 0:
             forward_positions = [Alignment(align).Positions for align in forward_align]
@@ -115,32 +117,55 @@ class Contig_PCR:
             
             return (forward_positions, reverse_positions)
     
-    def show_positions_sequence(self, target, primer_align_positions):
+    def show_product_sequence(self, target_seq, primer_align_positions, direction):
         """
         Extract the product sequence if primer_align_positions is not None.
         """
         
+        def write_out(target_seq, product_pos):
+            string_out = ""
+            id = self.target_id
+            last_idx = len(product_pos) - 1
+            
+            for idx, tup in enumerate(product_pos):
+                start, end = tup[0], tup[1]
+                size = end - start
+                product = target_seq[start:end]
+                
+                string_out += ">{0}:{1}:{2}-{3}:{4}bps\n{5}\n".format(id, direction, start, end, size, product)
+            
+            return string_out
+            
         if primer_align_positions != None:
             primer1_tups, primer2_tups = primer_align_positions
             product_positions = self.permute_possible(primer1_tups, primer2_tups)
             
             if product_positions != None:
-                [print(target[tup[0]:tup[1]]) for tup in product_positions]
+                return write_out(target_seq, product_positions)
     
     def run_PCR_pipeline(self):
         """
         Run this and you are good to go. Essentially the main().
         """
         
-        template_strand = self.target
-        reverse_strand = self.target.reverse_complement()
+        template_strand = self.target_seq
+        reverse_strand = self.target_seq.reverse_complement()
+        
+        contig_pcr_output = ""
         
         # Run PCR against template strand
         template_primer_positions = self.strand_pcr(template_strand, self.primer1, self.primer2)
         
-        self.show_positions_sequence(template_strand, template_primer_positions)
+        sense_product = self.show_product_sequence(template_strand, template_primer_positions, "Sense")
         
         # Run PCR against reverse strand
         reverse_primer_positions = self.strand_pcr(reverse_strand, self.primer1, self.primer2)
         
-        self.show_positions_sequence(reverse_strand, reverse_primer_positions)
+        antisense_product = self.show_product_sequence(reverse_strand, reverse_primer_positions, "Antisense")
+        
+        if sense_product != None:
+            contig_pcr_output += sense_product
+        if antisense_product != None:
+            contig_pcr_output += antisense_product
+        
+        return contig_pcr_output

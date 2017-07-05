@@ -16,7 +16,7 @@ class PrimerPair(Sequence):
         
     def __repr__(self):        
         string = "PrimerPair {0} of {1} ({2}bps) and {3} ({4}bps)"
-        return string.format(self.name, self.primer1, len(self.primer1), self.primer2, len(self.primer2))
+        return string.format(self.name, self.primer1.sequence, len(self.primer1), self.primer2.sequence, len(self.primer2))
         
     def assert_primer_is_pair(self):
         if self.get_contig_number() != 2:
