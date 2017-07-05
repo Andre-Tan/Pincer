@@ -132,7 +132,7 @@ class Contig_PCR:
                 size = end - start
                 product = target_seq[start:end]
                 
-                string_out += ">{0}:{1}:{2}-{3}:{4}bps\n{5}\n".format(id, direction, start, end, size, product)
+                string_out += ">{0} {1}:{2}-{3}:{4}bps\n{5}\n".format(id, direction, start, end, size, product)
             
             return string_out
             
