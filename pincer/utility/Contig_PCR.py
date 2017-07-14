@@ -1,6 +1,6 @@
 from Bio import pairwise2
 
-from objects.Alignment import Alignment
+from pincer.objects.Alignment import Alignment
 
 class Contig_PCR:
     

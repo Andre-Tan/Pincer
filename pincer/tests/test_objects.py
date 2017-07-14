@@ -1,12 +1,14 @@
+# Run from within tests/ folder.
+
 import unittest
 
-from objects.Sequence import Sequence, FileNotInPathException, NotFastaException
-from objects.Primer import PrimerPair, NotContigPairException
-from objects.Contig import Contig
+from pincer.objects.Sequence import Sequence, FileNotInPathException, NotFastaException
+from pincer.objects.Primer import PrimerPair, NotContigPairException
+from pincer.objects.Contig import Contig
 
 test_no_path = "this is a null test"
-test_primer_path = "tests/primer.fa"
-test_sequence_path = "tests/contig.fasta"
+test_primer_path = "pincer/tests/primer.fa"
+test_sequence_path = "pincer/tests/contig.fasta"
 
 sequence = Sequence(test_sequence_path)
 primer = PrimerPair(test_primer_path)

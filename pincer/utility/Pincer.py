@@ -1,11 +1,11 @@
 from sys import exit
 from Bio import pairwise2
 
-from objects.Sequence import Sequence
-from objects.Primer import PrimerPair
-from objects.Alignment import Alignment
+from pincer.objects.Sequence import Sequence
+from pincer.objects.Primer import PrimerPair
+from pincer.objects.Alignment import Alignment
 
-from utility.Contig_PCR import Contig_PCR
+from pincer.utility.Contig_PCR import Contig_PCR
 
 class IncorrectLengthException(Exception):
     pass
@@ -14,8 +14,8 @@ class IncorrectIntegerValueException(Exception):
     pass
     
 class Pincer:
-    def __init__(self, assembly_filename, primer_filename, penalty_tuple,
-                min_score, min_product_length, max_product_length, output_filename):
+    def __init__(self, assembly_filename, primer_filename, penalty_tuple=(1,0,-5,-2),
+                min_score=16, min_product_length=500, max_product_length=3000, output_filename=None):
                 
         self.contigs = Sequence(assembly_filename)
         
