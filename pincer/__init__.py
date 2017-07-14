@@ -1,4 +1,4 @@
-__version__ = "0.9.0"
+__version__ = "1.0"
 __author__ = "Andre Tan"
 __email__ = "andre.sutanto.91@gmail.com"
 __license__ = "GPL-3.0"
