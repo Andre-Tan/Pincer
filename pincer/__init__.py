@@ -1,0 +1,5 @@
+__version__ = "0.9.0"
+__author__ = "Andre Tan"
+__email__ = "andre.sutanto.91@gmail.com"
+__license__ = "GPL-3.0"
+__description__ = "PinCeR - In Silico PCR for Python 3"
