@@ -1,17 +1,39 @@
 # Pincer: In Silico PCR for Python3
 
+## Introduction
+
+### Purpose
+
 Pincer is a Python3 tool to do in silico PCR.  
 
 Provide it with a genome assembly FASTA and primers FASTA, and it will produce amplicons where possible.
 
+### Background
+
+Other tools for the same purpose exist (e.g. Seqpoet in Python2 and isPcr in C), but there is none for Python3.
+
+Although we can use both tools from Python3 by communicating with the command line, it adds unnecessary hassle to the whole process, thus Pincer.
+
+### Developer's Opinions
+
+Pincer and Seqpoet is similar in speed, where in the same machine they take ~2 minutes to do in silico PCR to the whole genome. IsPCR is a lot faster (~10s), but may be unfriendly to those familiar to only Python tools.
+
+If you want speed, use isPcr. If you want ease, use Seqpoet or Pincer (depending on the version of Python you use).
+
 ## Requirements
 
-Currently it only needs Bio.pairwise2 and Bio.SeqIO. Version will be updated.
+Currently it only needs Biopython, specifically Bio.pairwise2 and Bio.SeqIO. 
+
+Working with Biopython >= v1.7.
+
+## Installation
+
+Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, and run setup.py using `python3 setup.py install` over the command line on the directory where setup.py for Pincer is.
+
+You will then be able to use Pincer by calling `pincer` on the command line.
 
 ## Usage
-As is, Pincer is ready to be used over the command line, but you may need to do 
-`python3 run_Pincer.py --query <your assembly FASTA> --primers <your primers FASTA>`
-(setup.py will be made).
+As is, Pincer is ready to be used over the command line after installation.
 
 The required variables are:  
 `--query <FASTA>`: an assembled genome FASTA. Alignment will be checked within contigs; the longer the contigs, the better chance we have to find possible existing alignments.  
@@ -40,12 +62,7 @@ The amplicons will be coupled with a slightly modified FASTA header to show wher
 `contig_found`: Record.id of the contig in the genome FASTA.  
 `direction`: Sense or Antisense. FASTA sequence is by default Sense, and the reverse complement is Antisense.  
 `start_pos-end_pos`: Start and end position in the contig sequence. Note that in Antisense, the position produced is in the reverse complement of the contig sequence.  
-`size`: Size of the product amplicon (in base pairs).  
-
-## To Be Updated
-
-1. Need more unittest.
-2. Need an easy setup.py.
+`size`: Size of the product amplicon (in base pairs).
 
 ## Contact
 
