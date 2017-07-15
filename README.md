@@ -18,7 +18,7 @@ Although we can use both tools from Python3 by communicating with the command li
 
 Pincer and Seqpoet is similar in speed, where in the same machine they take ~2 minutes to do in silico PCR to the whole genome. IsPCR is a lot faster (~10s), but may be unfriendly to those familiar to only Python tools.
 
-If you want speed, use isPcr. If you want ease, use Seqpoet or Pincer (depending on the version of Python you use).
+If you want ease of use in Python, use Seqpoet or Pincer (depending on the version of Python you use). If you want speed and is okay with not using Python, use isPcr.
 
 ## Requirements
 
