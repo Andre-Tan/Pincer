@@ -6,7 +6,7 @@ from pincer.objects.Primer import PrimerPair
 from pincer.objects.Alignment import Alignment
 
 from pincer.utility.Contig_PCR import Contig_PCR
-
+ 
 class IncorrectLengthException(Exception):
     pass
 
@@ -53,13 +53,18 @@ class Pincer:
         return [contig for contig in self.contigs if len(contig) >= self.min_product_length]
     
     def write_where(self, pincer_output):
-        if self.output_filename == "None" or self.output_filename == None:
-            print(pincer_output[:-1])
+        output = pincer_output[:-1]
+        
+        if pincer_output:
+            if self.output_filename == "None" or self.output_filename == None:
+                print(output)
+            else:
+                with open(self.output_filename, "w") as handle:
+                    handle.write(output)
         else:
-            with open(self.output_filename, "w") as handle:
-                handle.write(pincer_output[:-1])
+            print("There is no output.")
             
-        return pincer_output[:-1]
+        return output
             
     def run_Pincer(self):
         

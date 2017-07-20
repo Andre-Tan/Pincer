@@ -5,10 +5,10 @@ import unittest
 from pincer.utility.Pincer import Pincer
 
 test_no_path = "this is a null test"
-sequence_path = "pincer/tests/contig.fasta"
-seq_rc_path = "pincer/tests/contig_rev_comp.fasta"
+sequence_path = "contig.fasta"
+seq_rc_path = "contig_rev_comp.fasta"
 
-primer_path = "pincer/tests/primer.fa"
+primer_path = "primer.fa"
 
 default_pincer = Pincer(sequence_path, primer_path)
 test_pincer = Pincer(seq_rc_path, primer_path,
