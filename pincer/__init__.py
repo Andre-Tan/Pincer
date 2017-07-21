@@ -1,5 +1,7 @@
+__name__ = "Pincer"
 __version__ = "1.0"
 __author__ = "Andre Tan"
 __email__ = "andre.sutanto.91@gmail.com"
+__url__ = "https://github.com/Andre-Tan/Pincer"
 __license__ = "GPL-3.0"
-__description__ = "PinCeR - In Silico PCR for Python 3"
+__description__ = "In Silico PCR for Python 3"
