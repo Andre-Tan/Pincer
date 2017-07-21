@@ -1,5 +1,16 @@
+import sys
+import os
+import logging
+
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+if sys.version_info <= (3, 0):
+    logging.fatal("Sorry, requires Python 3.x, not Python 2.x\n")
+    sys.exit(1)
+
 from setuptools import setup
 import pincer
+
 
 with open("README.md", "r") as f:
     long_description = f.read()
