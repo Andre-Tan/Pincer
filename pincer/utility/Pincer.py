@@ -1,4 +1,7 @@
 from sys import exit
+import os
+import logging
+
 from Bio import pairwise2
 
 from pincer.objects.Sequence import Sequence
@@ -6,7 +9,10 @@ from pincer.objects.Primer import PrimerPair
 from pincer.objects.Alignment import Alignment
 
 from pincer.utility.Contig_PCR import Contig_PCR
- 
+
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+logger = logging.getLogger(__name__)
+
 class IncorrectLengthException(Exception):
     pass
 
@@ -62,7 +68,7 @@ class Pincer:
                 with open(self.output_filename, "w") as handle:
                     handle.write(output)
         else:
-            print("There is no output.")
+            logger.info("There is no output.")
             
         return output
             
@@ -71,11 +77,15 @@ class Pincer:
         contigs_to_run = self.filter_contigs_by_length()
         pincer_output = ""
         
-        for idx, contig in enumerate(contigs_to_run):
+        logger.info("Running Pincer on {} contigs in {}".format(len(contigs_to_run), self.contigs.name))
         
+        for idx, contig in enumerate(contigs_to_run):
+            
             contig_pcr = Contig_PCR(contig, self.primer1, self.primer2, self.penalty_tuple,
                                     self.min_score, self.min_product_length, self.max_product_length)
             
             pincer_output += contig_pcr.run_PCR_pipeline()
+        
+        logger.info("Finished Pincer in {}".format(self.contigs.name))
         
         return self.write_where(pincer_output)
