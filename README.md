@@ -28,31 +28,44 @@ Working with Biopython >= v1.7.
 
 ## Installation
 
-Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, and run setup.py using `python3 setup.py install` over the command line on the directory where setup.py for Pincer is.
+Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, and run setup.py over the command line on the directory where setup.py for Pincer is located.
+The command is:
+
+```sh
+python3 setup.py install
+``` 
 
 You will then be able to use Pincer by calling `pincer` on the command line.
 
 ## Usage
 As is, Pincer is ready to be used over the command line after installation.
 
-The required variables are:  
-`--query <FASTA>`: an assembled genome FASTA. Alignment will be checked within contigs; the longer the contigs, the better chance we have to find possible existing alignments.  
-`--primers <FASTA>`: a FASTA containing primer1 and primer2 as separate records.  
+The required variables are:
+
+| Argument | Variable Type | Description |
+| ------ | ------ | ------ |
+| --query | FASTA | An assembled genome FASTA. Alignment will be checked within contigs; the longer the contigs, the better chance we have to find possible existing alignments. |
+| --primers | FASTA | A FASTA containing primer1 and primer2 as separate records. |
 
 Pincer uses Bio.pairwise2 local alignment function, and you can manually set the score and penalty using:  
-`-match <int>`: a positive integer value for when match occurs. Default: 1  
-`-mismatch <int>`: a negative integer value (or zero) for when mismatch occurs. Default: 0  
-`-gap_open <int>`: a negative integer value (or zero) for when gap open occurs. Default: -5  
-`-gap_extend <int>`: a negative integer value (or zero) for when gap extend occurs. Default: -2  
+
+| Argument | Variable Type | Description |
+| ------ | ------ | ------ |
+| -match | integer | A positive integer value for when match occurs. Default: 1 |
+| -mismatch | integer | A negative integer value (or zero) for when mismatch occurs. Default: 0 |
+| -gap_open | integer | A negative integer value (or zero) for when gap open occurs. Default: -5 |
+| -gap_extend | integer | A negative integer value (or zero) for when gap extend occurs. Default: -2 |
 
 Pincer will filter alignments according to the set scores, and produce amplicons where primer1 and primer2 aligned in a contig within possible product length range. 
 Amplicons outside of the minimum and maximum product length will not be produced. 
-The variables are:  
-`-min_score <int>`: a positive integer value for alignment to be considered as properly aligned. Default: 16.  
-`-min_product_length <int>`: a positive integer value for minimum product length. Default: 500bps.  
-`-max_product_length <int>`: a positive integer value for maximum product length. Default: 3000bps.  
+The variables are:
 
-`-output_filename <filename>`: a character string for if you want the amplicons sent to a file. Default: None, will print to command line.  
+| Argument | Variable Type | Description |
+| ------ | ------ | ------ |
+| -min_score | integer | Positive integer value for alignment to be considered as properly aligned. Default: 16. |
+| -min_product_length | integer | Positive integer value for minimum product length. Default: 500bps. |
+| -max_product_length | integer | Positive integer value for maximum product length. Default: 3000bps. | 
+| -output_filename | filename | A character string for if you want the amplicons sent to a file. Default: None, will print to command line. |
 
 ## Output Header
 
