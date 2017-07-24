@@ -49,23 +49,23 @@ The required variables are:
 
 Pincer uses Bio.pairwise2 local alignment function, and you can manually set the score and penalty using:  
 
-| Argument | Variable Type | Description |
-| ------ | ------ | ------ |
-| -match | integer | A positive integer value for when match occurs. Default: 1 |
-| -mismatch | integer | A negative integer value (or zero) for when mismatch occurs. Default: 0 |
-| -gap_open | integer | A negative integer value (or zero) for when gap open occurs. Default: -5 |
-| -gap_extend | integer | A negative integer value (or zero) for when gap extend occurs. Default: -2 |
+| Argument | Variable Type | Default | Description |
+| ------ | ------ | ------ | ------ |
+| -match | integer | 1 | A positive integer value for when match occurs |
+| -mismatch | integer | 0 | A negative integer value (or zero) for when mismatch occurs |
+| -gap_open | integer | -5 | A negative integer value (or zero) for when gap open occurs |
+| -gap_extend | integer | -2 | A negative integer value (or zero) for when gap extend occurs |
 
 Pincer will filter alignments according to the set scores, and produce amplicons where primer1 and primer2 aligned in a contig within possible product length range. 
 Amplicons outside of the minimum and maximum product length will not be produced. 
 The variables are:
 
-| Argument | Variable Type | Description |
-| ------ | ------ | ------ |
-| -min_score | integer | Positive integer value for alignment to be considered as properly aligned. Default: 16. |
-| -min_product_length | integer | Positive integer value for minimum product length. Default: 500bps. |
-| -max_product_length | integer | Positive integer value for maximum product length. Default: 3000bps. | 
-| -output_filename | filename | A character string for if you want the amplicons sent to a file. Default: None, will print to command line. |
+| Argument | Variable Type | Default | Description |
+| ------ | ------ | ------ | ------ |
+| -min_score | integer | 16 |Positive integer value for alignment to be considered as properly aligned |
+| -min_product_length | integer | 500bps| Positive integer value for minimum product length | 
+| -max_product_length | integer | 3000bps | Positive integer value for maximum product length | 
+| -output_filename | filename | None (stdout) | A character string for if you want the amplicons sent to a file |
 
 ## Output Header
 
