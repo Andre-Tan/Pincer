@@ -32,7 +32,7 @@ Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, 
 The command is:
 
 ```sh
-python3 setup.py install
+$ python3 setup.py install
 ``` 
 
 You will then be able to use Pincer by calling `pincer` on the command line.
@@ -70,12 +70,20 @@ The variables are:
 ## Output Header
 
 The amplicons will be coupled with a slightly modified FASTA header to show where it is produced.  
-`>contig_found direction:start_pos-end_pos:size`
-  
-`contig_found`: Record.id of the contig in the genome FASTA.  
-`direction`: Sense or Antisense. FASTA sequence is by default Sense, and the reverse complement is Antisense.  
-`start_pos-end_pos`: Start and end position in the contig sequence. Note that in Antisense, the position produced is in the reverse complement of the contig sequence.  
-`size`: Size of the product amplicon (in base pairs).
+```
+>contig_found direction:start_pos-end_pos:size
+```
+| Argument | Description |
+| ------ | ------ |  
+| contig_found | Record.id of the contig in the genome FASTA. |  
+| direction | Sense or Antisense. FASTA sequence is by default Sense, and the reverse complement is Antisense. |
+| start_pos-end_pos | Start and end position in the contig sequence. Note that in Antisense, the position produced is in the reverse complement of the contig sequence. |
+| size | Size of the product amplicon (in base pairs). |
+
+An example FASTA header produced by Pincer would look like this:
+```
+>contig1 Sense:113768-114904:1136bps
+```
 
 ## Contact
 
