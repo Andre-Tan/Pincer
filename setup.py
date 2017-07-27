@@ -15,7 +15,7 @@ import pincer
 with open("README.md", "r") as f:
     long_description = f.read()
 
-setup(name =pincer.__name__,
+setup(name = pincer.__name__,
         version = pincer.__version__,
         description = pincer.__description__,
         long_description = long_description,
