@@ -1,7 +1,7 @@
 import os
 
 def find(filename):
-    for root, dirs, files in os.walk(".", topdown=False):
+    for root, dirs, files in os.walk(os.path.dirname(__file__), topdown=False):
         for name in files:
             if name == filename:
                 return os.path.join(root, name)
