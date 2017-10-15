@@ -1,8 +1,8 @@
 import unittest
 
-from pincer.objects.Sequence import Sequence, FileNotInPathException, NotFastaException
-from pincer.objects.Primer import PrimerPair, NotContigPairException
-from pincer.objects.Contig import Contig
+from pincer.objects.sequence import Sequence, FileNotInPathException, NotFastaException
+from pincer.objects.primer import PrimerPair, NotContigPairException
+from pincer.objects.contig import Contig
 
 from pincer.tests.test_data import *
 

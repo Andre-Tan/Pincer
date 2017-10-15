@@ -2,7 +2,7 @@ from Bio import SeqIO
 from os import path
 from sys import exit
 
-from pincer.objects.Contig import Contig
+from pincer.objects.contig import Contig
 
 class FileNotInPathException(Exception):
     pass

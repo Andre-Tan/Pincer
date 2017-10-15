@@ -1,9 +1,9 @@
 import unittest
 
-from pincer.utility.Pincer import Pincer
+from pincer.utility.pincer import Pincer
 from pincer.tests.test_data import *
 
-default_pincer = Pincer(test_sequence_path, test_primer_path)
+default_pincer = Pincer(test_sequence_path, test_primer_path, min_3_end=10, threshold=20)
 test_pincer = Pincer(test_seq_rc_path, test_primer_path,
                     min_product_length=500, output_filename=None)
 test_pincer5000 = Pincer(test_seq_rc_path, test_primer_path,

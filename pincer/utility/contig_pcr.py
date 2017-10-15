@@ -1,6 +1,5 @@
-from Bio import pairwise2
-
-from pincer.objects.Alignment import Alignment
+from pincer.objects.aligner import Aligner
+from pincer.objects.alignment import Alignment
 
 class Contig_PCR:
     
@@ -13,8 +12,7 @@ class Contig_PCR:
     You need to supplement: 
     1. target contig: a Seq object
     2. primer1 and primer2: 2 Seq object, both in 5'-3' direction
-    3. penalty_tuple: for Bio.pairwise2, tuple of integes consisting 
-        (match, mismatch, gap open, gap extend). Only match is supposed to be positive.
+    3. min_3_end: minimum length of subsequence from 3'-end which must perfectly match.
     4. min_score: integer, to filter alignments.
     5. min_product_length: integer, x basepairs of minimum expected product length.
     6. max_product_length: integer, x basepairs of minimum expected product length.
@@ -22,7 +20,8 @@ class Contig_PCR:
     Will output the product sequence.
     """
     
-    def __init__(self, target, primer1, primer2, penalty_tuple,
+    def __init__(self, target, primer1, primer2, 
+                min_3_end, threshold,
                 min_score, min_product_length, max_product_length):
         
         self.target_seq = target.sequence
@@ -31,7 +30,8 @@ class Contig_PCR:
         self.primer1 = primer1.sequence
         self.primer2 = primer2.sequence
         
-        self.penalty_tuple = penalty_tuple
+        self.min_3_end = min_3_end
+        self.threshold = threshold
         
         self.min_score = min_score
         self.min_product_length = min_product_length
@@ -50,10 +50,7 @@ class Contig_PCR:
         def get_alignment_above_min_score(alignments):
             return [align for align in alignments if Alignment(align).filter_by_score(self.min_score)]
         
-        match, mismatch, gap_open, gap_extend = self.penalty_tuple
-        
-        alignment = pairwise2.align.localms(target_seq, primer, match, mismatch,
-                                            gap_open, gap_extend)
+        alignment = Aligner(target_seq, primer, self.min_3_end, self.threshold).main()
         
         return get_alignment_above_min_score(alignment)
         
@@ -107,10 +104,10 @@ class Contig_PCR:
         reverse = reverse.reverse_complement()
         
         forward_align = self.align_and_filter(target_seq, forward)
-        
+        print("Found forward {}".format(forward_align))
         if len(forward_align) > 0:
             reverse_align = self.align_and_filter(target_seq, reverse)
-            
+            print("Found reverse {}".format(reverse_align))
         if len(forward_align) > 0 and len(reverse_align) > 0:
             forward_positions = [Alignment(align).Positions for align in forward_align]
             reverse_positions = [Alignment(align).Positions for align in reverse_align]

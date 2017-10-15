@@ -1,7 +1,7 @@
 from sys import exit
 from Bio import SeqIO
 
-from pincer.objects.Sequence import Sequence
+from pincer.objects.sequence import Sequence
 
 class NotContigPairException(Exception):
     pass
