@@ -25,7 +25,7 @@ Although we can use both tools from Python3 by communicating with the command li
 
 ### Developer's Opinions
 
-Pincer and Seqpoet is similar in speed, where in the same machine they take ~2 minutes to do in silico PCR to the whole genome. IsPCR is a lot faster (~10s), but may be unfriendly to those familiar to only Python tools (or want to stay within Python environment).
+Pincer and Seqpoet is similar in speed, where in the same machine they take ~2 minutes to do in silico PCR to a bacterial assembled genome. IsPCR is a lot faster (~10s), but may be unfriendly to those familiar to only Python tools (or want to stay within Python environment).
 
 If you want ease of use in Python, use Seqpoet or Pincer (depending on the version of Python you use). If you want speed and is okay with not using Python, use isPcr.
 
@@ -37,14 +37,13 @@ Working with Biopython >= v1.7.
 
 ## Installation
 
-Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, and run setup.py over the command line on the directory where setup.py for Pincer is located.
-The command is:
+Pincer uses setup.py for easier installation. Clone the GitHub page for Pincer, and run setup.py over the command line on the directory where setup.py for Pincer is located. The command is:
 
 ```sh
 $ python3 setup.py install
 ``` 
 
-You will then be able to use Pincer by calling `pincer` on the command line.
+You will then be able to use Pincer by calling `pincer` on the command line. 
 
 ## Usage
 As is, Pincer is ready to be used over the command line after installation.
@@ -93,6 +92,10 @@ An example FASTA header produced by Pincer would look like this:
 ```
 >contig1 Sense:113768-114904:1136bps
 ```
+
+## Future Development
+
+Pincer is slow because it uses dynamic local alignment function from BioPython, which is generally not necessary for doing in silico PCR. I will be working on a custom aligner to be used in Pincer soon after my other project EmMAIL is done.
 
 ## Contact
 
