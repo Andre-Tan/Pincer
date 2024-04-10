@@ -1,4 +1,4 @@
-# Pincer: In Silico PCR for Python3
+# Pincer: In Silico PCR for Python3 [\[Not currently maintained\]](##Notes)
 
 ## Table of Content
 
@@ -7,7 +7,7 @@
 3. [Installation](##Installation)
 4. [Usage](##Usage)
 5. [Output Header](##Output_Header)
-6. [Contact](##Contact)
+6. [Notes](##Notes)
 
 ## Introduction
 
@@ -93,11 +93,12 @@ An example FASTA header produced by Pincer would look like this:
 >contig1 Sense:113768-114904:1136bps
 ```
 
-## Future Development
+## Notes
 
-Pincer is slow because it uses dynamic local alignment function from BioPython, which is generally not necessary for doing in silico PCR. I will be working on a custom aligner to be used in Pincer soon after my other project EmMAIL is done.
+Pincer is slow because it uses dynamic local alignment function from BioPython, which is generally not necessary for doing in silico PCR. ~~I will be working on a custom aligner to be used in Pincer soon after my other project EmMAIL is done.~~
 
-## Contact
+Thank you for the interest I saw in Pincer. 
 
-Should you want to fill issues or contact me about anything regarding Pincer, 
-you can reach me here or on my email: andre.sutanto.91@gmail.com.
+This program is not currently under development as I am not working in biology anymore. Feel free to use or develop this code as you see fit.
+
+Should you want to fill issues or contact me about anything regarding Pincer, you can reach me here.
